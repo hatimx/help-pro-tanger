@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HelpPro Tanger - Spécialiste Froid Industriel & Maintenance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,10 +14,11 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             background-color: #ffffff;
+            overflow-x: hidden;
         }
 
         .container {
@@ -33,7 +36,14 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(30, 58, 138, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         nav {
@@ -46,6 +56,13 @@
             font-size: 1.8rem;
             font-weight: bold;
             color: #06b6d4;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
         }
 
         .nav-links {
@@ -58,60 +75,112 @@
             color: white;
             text-decoration: none;
             transition: color 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #06b6d4;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
         .nav-links a:hover {
             color: #06b6d4;
         }
 
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            background: linear-gradient(rgba(30, 58, 138, 0.9), rgba(59, 130, 246, 0.9)),
+                url('https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
             color: white;
             text-align: center;
-            padding: 120px 0 80px;
-            margin-top: 60px;
+            padding: 150px 0 100px;
+            margin-top: 0;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
             animation: fadeInUp 1s ease-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
             animation: fadeInUp 1s ease-out 0.3s both;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .cta-button {
             background: #06b6d4;
             color: white;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
             animation: fadeInUp 1s ease-out 0.6s both;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .cta-button:hover {
             background: #0891b2;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
         }
 
         /* About Section */
         .about {
-            padding: 80px 0;
+            padding: 100px 0;
             background: #f8fafc;
         }
 
-        .about h2 {
+        .section-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
             color: #1e3a8a;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #06b6d4;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
         }
 
         .about-content {
@@ -126,45 +195,51 @@
             line-height: 1.8;
         }
 
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
         .about-highlights {
             background: white;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
         .highlight-item {
             display: flex;
             align-items: center;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
             border-left: 4px solid #06b6d4;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .highlight-item:hover {
+            transform: translateX(5px);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .highlight-icon {
-            width: 40px;
-            height: 40px;
-            background: #06b6d4;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
+            margin-right: 1.5rem;
             color: white;
-            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
         /* Services Section */
         .services {
-            padding: 80px 0;
+            padding: 100px 0;
             background: white;
-        }
-
-        .services h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1e3a8a;
         }
 
         .services-grid {
@@ -175,34 +250,53 @@
 
         .service-card {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
             border-top: 4px solid #06b6d4;
+            position: relative;
+            overflow: hidden;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(30, 58, 138, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover:before {
+            opacity: 1;
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, #06b6d4, #0891b2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
         }
 
         .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
             color: #1e3a8a;
         }
 
@@ -211,9 +305,10 @@
         }
 
         .service-card li {
-            padding: 0.3rem 0;
-            padding-left: 1.5rem;
+            padding: 0.5rem 0;
+            padding-left: 1.8rem;
             position: relative;
+            line-height: 1.6;
         }
 
         .service-card li:before {
@@ -226,15 +321,8 @@
 
         /* Coverage Area */
         .coverage {
-            padding: 80px 0;
+            padding: 100px 0;
             background: #f8fafc;
-        }
-
-        .coverage h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1e3a8a;
         }
 
         .coverage-areas {
@@ -247,34 +335,34 @@
             background: white;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             text-align: center;
+            transition: all 0.3s;
+        }
+
+        .area-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
 
         .area-icon {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: #06b6d4;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
+            margin: 0 auto 1.5rem;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
         }
 
         /* Industries Section */
         .industries {
-            padding: 80px 0;
+            padding: 100px 0;
             background: white;
-        }
-
-        .industries h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1e3a8a;
         }
 
         .industries-grid {
@@ -286,32 +374,50 @@
         .industry-item {
             background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
-            padding: 2rem;
+            padding: 2.5rem 1.5rem;
             border-radius: 10px;
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .industry-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.4);
         }
 
         .industry-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* Contact Section */
-        .contact {
+        /* Map Section */
+        .map-section {
             padding: 80px 0;
             background: #f8fafc;
         }
 
-        .contact h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1e3a8a;
+        .map-container {
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 50%, #ffffff 50%);
         }
 
         .contact-content {
@@ -322,34 +428,82 @@
 
         .contact-info {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .contact-info h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #06b6d4;
+            bottom: -10px;
+            left: 0;
+            border-radius: 3px;
         }
 
         .contact-item {
             display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
+            align-items: flex-start;
+            margin-bottom: 2rem;
         }
 
         .contact-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: #06b6d4;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
+            margin-right: 1.5rem;
             color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-text h4 {
+            font-size: 1.2rem;
+            color: #1e3a8a;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-text p {
+            color: #64748b;
         }
 
         .contact-form {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .contact-form h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #06b6d4;
+            bottom: -10px;
+            left: 0;
+            border-radius: 3px;
         }
 
         .form-group {
@@ -359,48 +513,166 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #1e3a8a;
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 0.8rem;
+            padding: 0.8rem 1rem;
             border: 2px solid #e2e8f0;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
         }
 
         .submit-btn {
             background: #06b6d4;
             color: white;
-            padding: 12px 30px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             font-size: 1.1rem;
             cursor: pointer;
             width: 100%;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
         }
 
         .submit-btn:hover {
             background: #0891b2;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
         }
 
         /* Footer */
         footer {
             background: #1e3a8a;
             color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: #06b6d4;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+            color: #e2e8f0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #06b6d4;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #06b6d4;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
             text-align: center;
-            padding: 2rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #06b6d4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #0891b2;
+            transform: translateY(-5px);
         }
 
         /* Animations */
@@ -409,6 +681,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -416,76 +689,159 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .hero h1 {
-                font-size: 2rem;
+            .hero p {
+                font-size: 1.1rem;
             }
 
             .about-content,
             .contact-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
-            .services-grid {
-                grid-template-columns: 1fr;
+            .contact {
+                background: #f8fafc;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: #1e3a8a;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.3;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            .service-card,
+            .area-card,
+            .industry-item {
+                padding: 1.5rem;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .map-container {
+                height: 350px;
             }
         }
     </style>
 </head>
+
 <body>
-    <header>
+    <header id="header">
         <nav class="container">
-            <div class="logo">HelpPro Tanger</div>
+            <div class="logo">
+                <!-- <img src="https://via.placeholder.com/40x40" alt="HelpPro Logo"> -->
+                HelpPro Tanger
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="#about">À Propos</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#coverage">Zone d'Intervention</a></li>
+                <li><a href="#map">Localisation</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
         </nav>
     </header>
 
     <section id="home" class="hero">
         <div class="container">
             <h1>Spécialiste Froid Industriel & Maintenance</h1>
-            <p>Installation & Maintenance des systèmes de froid industriel et commercial à Tanger</p>
+            <p>Solutions techniques avancées pour l'industrie et le commerce à Tanger et sa région. Expertise,
+                réactivité et professionnalisme.</p>
             <button class="cta-button">Demander un Devis</button>
         </div>
     </section>
 
     <section id="about" class="about">
         <div class="container">
-            <h2>À Propos de HelpPro Tanger</h2>
+            <h2 class="section-title">À Propos de HelpPro Tanger</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>HelpPro Tanger est une entreprise spécialisée dans la maintenance technique et les services industriels, avec un cœur d'expertise dans le domaine du froid industriel, commercial et domestique.</p>
-                    <p>Nous intervenons pour les usines, grandes surfaces, restaurants/hôtels, laboratoires, ainsi que pour certains particuliers exigeants nécessitant des solutions de climatisation et chambres froides professionnelles.</p>
+                    <p>Fondée en 2010, HelpPro Tanger est une entreprise spécialisée dans la maintenance technique et
+                        les services industriels, avec une expertise reconnue dans le domaine du froid industriel,
+                        commercial et domestique.</p>
+                    <p>Notre équipe de techniciens qualifiés intervient pour les usines, grandes surfaces, restaurants,
+                        hôtels, laboratoires, ainsi que pour les particuliers exigeants nécessitant des solutions de
+                        climatisation et chambres froides professionnelles.</p>
+                    <p>Nous nous engageons à fournir des services de qualité, avec une réponse rapide et des solutions
+                        durables pour tous vos besoins techniques.</p>
                 </div>
                 <div class="about-highlights">
                     <div class="highlight-item">
-                        <div class="highlight-icon">❄️</div>
+                        <div class="highlight-icon"><i class="fas fa-snowflake"></i></div>
                         <div>
                             <h4>Froid Industriel</h4>
-                            <p>Spécialité principale</p>
+                            <p>Expertise certifiée en systèmes de réfrigération industrielle et commerciale</p>
                         </div>
                     </div>
                     <div class="highlight-item">
-                        <div class="highlight-icon">🔧</div>
+                        <div class="highlight-icon"><i class="fas fa-tools"></i></div>
                         <div>
-                            <h4>Maintenance</h4>
-                            <p>Service complet</p>
+                            <h4>Maintenance Préventive</h4>
+                            <p>Programmes de maintenance sur mesure pour éviter les pannes coûteuses</p>
                         </div>
                     </div>
                     <div class="highlight-item">
-                        <div class="highlight-icon">⚡</div>
+                        <div class="highlight-icon"><i class="fas fa-bolt"></i></div>
                         <div>
-                            <h4>Multi-technique</h4>
-                            <p>Solutions intégrées</p>
+                            <h4>Solutions Multi-techniques</h4>
+                            <p>Interventions intégrées couvrant plusieurs domaines techniques</p>
                         </div>
                     </div>
                 </div>
@@ -495,10 +851,10 @@
 
     <section id="services" class="services">
         <div class="container">
-            <h2>Nos Services</h2>
+            <h2 class="section-title">Nos Services</h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">❄️</div>
+                    <div class="service-icon"><i class="fas fa-snowflake"></i></div>
                     <h3>Froid Industriel & Commercial</h3>
                     <ul>
                         <li>Installation de chambres froides positives et négatives</li>
@@ -510,43 +866,50 @@
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon">🏭</div>
+                    <div class="service-icon"><i class="fas fa-industry"></i></div>
                     <h3>Installation & Maintenance Industrielle</h3>
                     <ul>
                         <li>Machines de production</li>
                         <li>Systèmes automatisés</li>
                         <li>Raccordements techniques (air comprimé, eau, électricité)</li>
                         <li>Contrôle et entretien de lignes industrielles</li>
+                        <li>Optimisation des processus industriels</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon">⚡</div>
+                    <div class="service-icon"><i class="fas fa-bolt"></i></div>
                     <h3>Électricité Industrielle & Générale</h3>
                     <ul>
                         <li>Armoires électriques, disjoncteurs, relais</li>
                         <li>Rénovation de tableaux, alimentation machines</li>
                         <li>Sécurisation des circuits</li>
+                        <li>Diagnostic et dépannage électrique</li>
+                        <li>Mise aux normes des installations</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon">🚿</div>
+                    <div class="service-icon"><i class="fas fa-faucet"></i></div>
                     <h3>Plomberie Technique</h3>
                     <ul>
                         <li>Tuyauterie pour équipements industriels</li>
                         <li>Réseaux d'eau et de gaz technique</li>
                         <li>Entretien de conduites et raccords</li>
+                        <li>Installation de systèmes de filtration</li>
+                        <li>Détection et réparation de fuites</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon">🔧</div>
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
                     <h3>Maintenance Générale & Multi-technique</h3>
                     <ul>
                         <li>Petits travaux dans locaux professionnels</li>
                         <li>Assistance technique aux PME et artisans</li>
                         <li>Intervention dans hôtels, Airbnb, bureaux</li>
+                        <li>Maintenance préventive programmée</li>
+                        <li>Service d'urgence 24/7</li>
                     </ul>
                 </div>
             </div>
@@ -555,32 +918,37 @@
 
     <section id="coverage" class="coverage">
         <div class="container">
-            <h2>Zone d'Intervention</h2>
+            <h2 class="section-title">Zone d'Intervention</h2>
             <div class="coverage-areas">
                 <div class="area-card">
-                    <div class="area-icon">📍</div>
-                    <h3>Tanger</h3>
-                    <p>Centre-ville et périphérie</p>
+                    <div class="area-icon"><i class="fas fa-city"></i></div>
+                    <h3>Tanger Centre</h3>
+                    <p>Centre-ville et quartiers environnants</p>
                 </div>
                 <div class="area-card">
-                    <div class="area-icon">🏛️</div>
+                    <div class="area-icon"><i class="fas fa-archway"></i></div>
                     <h3>Tanger-Médina</h3>
-                    <p>Quartier historique</p>
+                    <p>Quartier historique et vieille ville</p>
                 </div>
                 <div class="area-card">
-                    <div class="area-icon">🌊</div>
+                    <div class="area-icon"><i class="fas fa-umbrella-beach"></i></div>
                     <h3>Tanger-Assilah</h3>
-                    <p>Zone côtière</p>
+                    <p>Zone côtière et stations balnéaires</p>
                 </div>
                 <div class="area-card">
-                    <div class="area-icon">🏭</div>
+                    <div class="area-icon"><i class="fas fa-industry"></i></div>
                     <h3>Zones Industrielles</h3>
-                    <p>Intervention possible</p>
+                    <p>Toutes les zones industrielles de Tanger</p>
                 </div>
                 <div class="area-card">
-                    <div class="area-icon">🏨</div>
+                    <div class="area-icon"><i class="fas fa-hotel"></i></div>
                     <h3>Zones Touristiques</h3>
-                    <p>Hôtels et complexes</p>
+                    <p>Hôtels, complexes et résidences</p>
+                </div>
+                <div class="area-card">
+                    <div class="area-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>Grand Tanger</h3>
+                    <p>Région élargie de Tanger</p>
                 </div>
             </div>
         </div>
@@ -588,74 +956,104 @@
 
     <section class="industries">
         <div class="container">
-            <h2>Secteurs d'Activité</h2>
+            <h2 class="section-title">Secteurs d'Activité</h2>
             <div class="industries-grid">
                 <div class="industry-item">
-                    <div class="industry-icon">🏭</div>
+                    <div class="industry-icon"><i class="fas fa-industry"></i></div>
                     <h3>Usines</h3>
+                    <p>Solutions industrielles complètes</p>
                 </div>
                 <div class="industry-item">
-                    <div class="industry-icon">🏪</div>
+                    <div class="industry-icon"><i class="fas fa-store"></i></div>
                     <h3>Grandes Surfaces</h3>
+                    <p>Systèmes de froid commerciaux</p>
                 </div>
                 <div class="industry-item">
-                    <div class="industry-icon">🍽️</div>
+                    <div class="industry-icon"><i class="fas fa-utensils"></i></div>
                     <h3>Restaurants</h3>
+                    <p>Équipements professionnels</p>
                 </div>
                 <div class="industry-item">
-                    <div class="industry-icon">🏨</div>
+                    <div class="industry-icon"><i class="fas fa-hotel"></i></div>
                     <h3>Hôtels</h3>
+                    <p>Climatisation et maintenance</p>
                 </div>
                 <div class="industry-item">
-                    <div class="industry-icon">🔬</div>
+                    <div class="industry-icon"><i class="fas fa-flask"></i></div>
                     <h3>Laboratoires</h3>
+                    <p>Environnements contrôlés</p>
                 </div>
                 <div class="industry-item">
-                    <div class="industry-icon">🏠</div>
+                    <div class="industry-icon"><i class="fas fa-home"></i></div>
                     <h3>Particuliers</h3>
+                    <p>Solutions haut de gamme</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="map" class="map-section">
+        <div class="container">
+            <h2 class="section-title">Notre Localisation</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: #64748b;">
+                Nous sommes situés au cœur de Tanger, prêts à intervenir rapidement dans toute la région.
+            </p>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.207094509799!2d-5.813551724019562!3d35.75981737251419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0b875cf04c132d%3A0x76bfc571bfb4e17a!2sTangier%2C%20Morocco!5e0!3m2!1sen!2sus!4v1712345678901!5m2!1sen!2sus"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
 
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Contactez-Nous</h2>
+            <h2 class="section-title">Contactez-Nous</h2>
             <div class="contact-content">
                 <div class="contact-info">
                     <h3>Informations de Contact</h3>
                     <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-text">
                             <h4>Adresse</h4>
-                            <p>Tanger, Maroc</p>
+                            <p>123 Avenue Mohammed VI<br>Tanger 90000, Maroc</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div>
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="contact-text">
                             <h4>Téléphone</h4>
-                            <p>+212 XXX XXX XXX</p>
+                            <p>+212 612 345 678</p>
+                            <p>+212 522 123 456</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-text">
                             <h4>Email</h4>
                             <p>contact@helppro-tanger.ma</p>
+                            <p>support@helppro-tanger.ma</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">🕐</div>
-                        <div>
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div class="contact-text">
                             <h4>Horaires</h4>
-                            <p>Lun-Ven: 8h00-18h00<br>Sam: 8h00-12h00</p>
+                            <p>Lundi-Vendredi: 8h00-18h00</p>
+                            <p>Samedi: 8h00-15h00</p>
+                            <p>Dimanche: Urgences uniquement</p>
                         </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="contact-form">
                     <h3>Demande de Devis</h3>
-                    <form>
+                    <form id="quoteForm">
                         <div class="form-group">
                             <label for="name">Nom & Prénom</label>
                             <input type="text" id="name" name="name" required>
@@ -670,17 +1068,19 @@
                         </div>
                         <div class="form-group">
                             <label for="service">Service demandé</label>
-                            <select id="service" name="service" style="width: 100%; padding: 0.8rem; border: 2px solid #e2e8f0; border-radius: 5px;">
+                            <select id="service" name="service" required>
+                                <option value="">Sélectionnez un service</option>
                                 <option>Froid Industriel</option>
                                 <option>Maintenance Industrielle</option>
                                 <option>Électricité</option>
                                 <option>Plomberie</option>
                                 <option>Maintenance Générale</option>
+                                <option>Autre</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
+                            <label for="message">Détails de votre demande</label>
+                            <textarea id="message" name="message" rows="4" required style="resize: none;"></textarea>
                         </div>
                         <button type="submit" class="submit-btn">Envoyer la Demande</button>
                     </form>
@@ -691,11 +1091,74 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 HelpPro Tanger. Tous droits réservés. | Spécialiste Froid Industriel & Maintenance</p>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>HelpPro Tanger</h3>
+                    <p>Spécialiste en froid industriel et maintenance technique à Tanger et sa région.
+                        Professionnalisme, qualité et réactivité.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Froid Industriel</a></li>
+                        <li><a href="#">Maintenance Industrielle</a></li>
+                        <li><a href="#">Électricité</a></li>
+                        <li><a href="#">Plomberie Technique</a></li>
+                        <li><a href="#">Maintenance Multitechnique</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Liens Utiles</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#about">À Propos</a></li>
+                        <li><a href="#services">Nos Services</a></li>
+                        <li><a href="#coverage">Zone d'Intervention</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Av. Mohammed VI, Tanger</p>
+                    <p><i class="fas fa-phone-alt"></i> +212 612 345 678</p>
+                    <p><i class="fas fa-envelope"></i> contact@helppro-tanger.ma</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 HelpPro Tanger. Tous droits réservés.</p>
+            </div>
         </div>
     </footer>
 
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const header = document.getElementById('header');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -707,20 +1170,78 @@
         });
 
         // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
+        document.getElementById('quoteForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            alert('Merci pour votre demande! Nous vous contacterons dans les plus brefs délais.');
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+
+            // Show success message
+            Swal.fire({
+                title: 'Merci, ' + name + '!',
+                text: 'Votre demande pour ' + service + ' a été envoyée avec succès. Nous vous contacterons dans les plus brefs délais.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#06b6d4'
+            });
+
+            // Reset form
+            this.reset();
         });
 
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
+        // Scroll effect for header
+        window.addEventListener('scroll', function () {
             if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(30, 58, 138, 0.95)';
+                header.classList.add('scrolled');
             } else {
-                header.style.backgroundColor = '';
+                header.classList.remove('scrolled');
+            }
+
+            // Back to top button
+            if (window.scrollY > 300) {
+                document.getElementById('backToTop').classList.add('active');
+            } else {
+                document.getElementById('backToTop').classList.remove('active');
             }
         });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animate elements when scrolling
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.service-card, .highlight-item, .industry-item, .area-card');
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animation
+        document.querySelectorAll('.service-card, .highlight-item, .industry-item, .area-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
     </script>
+
+    <!-- SweetAlert for beautiful alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
